@@ -1,9 +1,5 @@
-import React from 'react'
+import React from "react";
 
 export default function Location() {
-    return (
-        <div>
-            Location page
-        </div>
-    )
+  return <h1>Location page</h1>;
 }
