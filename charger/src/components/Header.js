@@ -5,6 +5,7 @@ import { AppBar, Toolbar, Button, Typography, Box } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    margin: " 0 0 3rem 0",
     backgroundColor: theme.palette.primary.main,
     "& button": {
       color: theme.palette.primary.secondary,
