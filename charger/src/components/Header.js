@@ -1,22 +1,49 @@
-import React, { Component } from 'react'
-import styles from './Header.module.css';
-import Home from '../pages/Home';
-import {Link} from 'react-router-dom';
-export class Header extends Component {
-    render() {
-        return (
-           
-            <div class={styles.container}>
-                <ul class={styles.items}>
-                    <li>Home</li>
-                    <li>Location</li>
-                    <li>About us</li>
-                    <li>Account</li>
-                </ul>
-            </div>
-        
-        ) 
+import React from "react";
+import { Link } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
+import { AppBar, Toolbar, Button, Typography, Box } from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    margin: " 0 0 3rem 0",
+    backgroundColor: theme.palette.primary.main,
+    "& button": {
+      color: theme.palette.primary.secondary,
+      "& a": {
+        textDecoration: "none",
+        color: theme.palette.primary.secondary
+      }
     }
+  }
+}));
+
+function Header() {
+  const classes = useStyles();
+  return (
+    <div className={classes.root}>
+      <AppBar position="static" className={classes.root}>
+        <Toolbar>
+          <Box mr="auto">
+            <Typography>Chargers</Typography>
+          </Box>
+          <Box m="auto">
+            <Button>
+              <Link to="/">Home</Link>
+            </Button>
+            <Button>
+              <Link to="/location">Location</Link>
+            </Button>
+            <Button>
+              <Link to="/about">About Us</Link>
+            </Button>
+          </Box>
+          <Box ml="auto">
+            <Button>Login</Button>
+          </Box>
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
 }
 
-export default Header
+export default Header;
