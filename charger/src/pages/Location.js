@@ -27,7 +27,7 @@ function Location() {
  
   return (
     <LoadScript
-      googleMapsApiKey=/*APIKEY*/
+      googleMapsApiKey=/*API key vao day */
     >
       <GoogleMap
         mapContainerStyle={containerStyle}
