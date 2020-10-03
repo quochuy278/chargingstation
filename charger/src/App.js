@@ -16,8 +16,7 @@ const theme = createMuiTheme({
       secondary: "white",
       third: "#d63031"
     }
-  },
-  color: "white"
+  }
 });
 
 function App() {
@@ -27,7 +26,7 @@ function App() {
         <Header></Header>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/location" component={Location}/>
+          <Route path="/location" component={Location} />
           <Route path="/about" component={About} />
           {/* <Route path="*">404 Page</Route> */}
         </Switch>

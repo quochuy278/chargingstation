@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    margin: "3rem 0 0 0",
+    margin: "1rem 0 0 0",
     backgroundColor: theme.palette.primary.main,
     "& a": {
       textDecoration: "none"
