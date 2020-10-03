@@ -2,10 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { AppBar, Toolbar, Button, Typography, Box } from "@material-ui/core";
+import LoginRegisterTab from "./LoginRegisterTab";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    margin: " 0 0 3rem 0",
+    margin: " 0",
     backgroundColor: theme.palette.primary.main,
     "& button": {
       color: theme.palette.primary.secondary,
@@ -19,8 +20,17 @@ const useStyles = makeStyles((theme) => ({
 
 function Header() {
   const classes = useStyles();
+  const [open, setOpen] = React.useState(true);
+  const handleClickOpen = () => {
+    setOpen(true);
+    console.log(open);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
-    <div className={classes.root}>
+    <div>
       <AppBar position="static" className={classes.root}>
         <Toolbar>
           <Box mr="auto">
@@ -38,10 +48,14 @@ function Header() {
             </Button>
           </Box>
           <Box ml="auto">
-            <Button>Login</Button>
+            <Button onClick={handleClickOpen}>Login</Button>
           </Box>
         </Toolbar>
       </AppBar>
+      <LoginRegisterTab
+        open={open}
+        handleClose={handleClose}
+      ></LoginRegisterTab>
     </div>
   );
 }
