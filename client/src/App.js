@@ -50,6 +50,21 @@ export default class App extends Component {
       });
   };
 
+  register = (event) => {
+    event.preventDefault();
+    axios
+      .post(constants.baseAddress + "/users", {
+        username: event.target["username"].value,
+        password: event.target["password"].value
+      })
+      .then(function(response) {
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  };
+
   render() {
     return (
       <React.StrictMode>
