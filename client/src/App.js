@@ -50,21 +50,6 @@ export default class App extends Component {
       });
   };
 
-  register = (event) => {
-    event.preventDefault();
-    axios
-      .post(constants.baseAddress + "/users", {
-        username: event.target["username"].value,
-        password: event.target["password"].value
-      })
-      .then(function(response) {
-        console.log(response);
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-  };
-
   render() {
     return (
       <React.StrictMode>
@@ -86,12 +71,12 @@ export default class App extends Component {
                     loginSuccess={this.onLogin}
                     loginFail={this.onLoginFail}
                     userInfo={this.state.userInfo}
-                    redirectPathOnSuccess="/example"
+                    redirectPathOnSuccess="/"
                     {...routeProps}
                   />
                 )}
               />
-              <ProtectedRoute
+              {/* <ProtectedRoute
                 isAuthenticated={this.state.isAuthenticated}
                 path="/example"
                 exact
@@ -101,7 +86,7 @@ export default class App extends Component {
                     someData={this.state.someData}
                   />
                 )}
-              ></ProtectedRoute>
+              ></ProtectedRoute> */}
               {/* <Route path="*">404 Page</Route> */}
             </Switch>
             <Footer></Footer>

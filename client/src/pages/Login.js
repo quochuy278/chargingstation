@@ -1,27 +1,28 @@
 import React from "react";
-import { Button, TextField, Container } from "@material-ui/core";
+import { Button, TextField, Container, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import Auth from "../components/Auth";
 
 export default function Login(props) {
   const login = (event) => {
     event.preventDefault();
+
     Auth.authenticate(
       event.target["username"].value,
       event.target["password"].value
     )
       .then((result) => {
+        console.log("login" + result);
         props.loginSuccess();
-        props.history.push(props.redirectPathOnSuccess);
       })
-      .catch(() => {
+      .catch((err) => {
         props.loginFail();
+        console.log(err);
       });
   };
-
   return (
     <div>
-      <form noValidate autoComplete="off" onSubmit={login}>
+      <form onSubmit={login} noValidate autoComplete="off">
         <Container>
           <TextField
             autoFocus
@@ -44,9 +45,9 @@ export default function Login(props) {
           Login
         </Button>
       </form>
-      <Button>
-        <Link to="/register">Register</Link>
-      </Button>
+      <Typography>
+        or do you want to <Link to="/register"> register</Link>
+      </Typography>
     </div>
   );
 }

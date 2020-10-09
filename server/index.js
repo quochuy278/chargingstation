@@ -1,74 +1,41 @@
 const express = require("express");
-const bodyParser = require("body-parser");
-const { v4: uuidv4 } = require("uuid");
-const bcrypt = require("bcryptjs");
-const passport = require("passport");
-const passportHttp = require("passport-http");
-const cors = require("cors");
 const app = express();
 const port = 4000;
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const db = require("./db");
+const bcrypt = require("bcryptjs");
+const passport = require("passport");
+var Strategy = require("passport-http").BasicStrategy;
+
+const saltRounds = 4;
 
 app.use(bodyParser.json());
 app.use(cors());
 
-let users = [
-  {
-    id: "70c618cb-a9a8-43f3-b692-3878a9ec44e1",
-    username: "johndoe",
-    password: "$2a$08$YIj.vn8QVGYWtOzp.u7acOZgHYM4cVRH13Ws5kbQT4RxKOLbmX4ta", // 123456
-    email: "john@doe"
-  }
-];
-
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
-app.post("/register", (req, res) => {
-  console.log(req.body);
-
-  const passwordHash = bcrypt.hashSync(req.body.password, 8);
-
-  users.push({
-    id: uuidv4(),
-    username: req.body.username,
-    password: passwordHash,
-    email: req.body.email
-  });
-
-  res.sendStatus(200);
-});
-
-app.get("/users", (req, res) => {
-  res.json(users);
-});
-
 passport.use(
-  new passportHttp.BasicStrategy(function(username, password, done) {
-    const userResult = users.find((user) => user.username === username);
-    if (userResult == undefined) {
-      return done(null, false);
-    }
+  new Strategy((username, password, cb) => {
+    db.query("SELECT id, username, password FROM users WHERE username = ?", [
+      username
+    ])
+      .then((dbResults) => {
+        if (dbResults.length == 0) {
+          return cb(null, false);
+        }
 
-    if (bcrypt.compareSync(password, userResult.password) == false) {
-      return done(null, false);
-    }
-
-    done(null, userResult);
+        bcrypt
+          .compareSync(password, dbResults[0].password)
+          .then((bcryptResult) => {
+            if (bcryptResult == true) {
+              cb(null, dbResults[0]);
+            } else {
+              return cb(null, false);
+            }
+          });
+      })
+      .catch((dbError) => cb(err));
   })
 );
-
-// This one should be protected with HTTP Basic
-app.post(
-  "/login",
-  passport.authenticate("basic", { session: false }),
-  (req, res) => {
-    console.log(req.user);
-    res.sendStatus(200);
-  }
-);
-
-app.get("/unprotected", (req, res) => res.send("Hello World!"));
 
 app.get(
   "/hello-protected",
@@ -76,6 +43,105 @@ app.get(
   (req, res) => res.send("Hello Protected World!")
 );
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+app.get("/users", (req, res) => {
+  db.query("SELECT id, username FROM users").then((results) => {
+    res.json(results);
+  });
 });
+
+app.post("/login", (req, res) => {
+  let username = req.body.auth.username;
+  let password = req.body.auth.password;
+  if (username && password) {
+    db.query("SELECT * FROM users WHERE username = ?", [username], function(
+      err,
+      results,
+      fields
+    ) {
+      if (err) {
+        res.sendStatus(400);
+      } else {
+        if (results.length > 0) {
+          const comparision = bcrypt.compareSync(password, results[0].password);
+          if (comparision) {
+            console.log("login sucessfull");
+            res.sendStatus(200);
+          } else {
+            console.log("username and password does not match");
+            res.sendStatus(204);
+          }
+        } else {
+          console.log("username does not exits");
+          res.sendStatus(206);
+        }
+      }
+    });
+  } else {
+    console.log(username);
+    console.log("no");
+    res.sendStatus(400);
+  }
+});
+
+app.get(
+  "/users/:id",
+  passport.authenticate("basic", { session: false }),
+  (req, res) => {
+    db.query("SELECT id, username FROM users WHERE id = ?", [
+      req.params.id
+    ]).then((results) => {
+      res.json(results);
+    });
+  }
+);
+
+app.post("/register", (req, res) => {
+  let username = req.body.username.trim();
+  let password = req.body.password.trim();
+
+  if (
+    typeof username === "string" &&
+    username.length > 4 &&
+    typeof password === "string" &&
+    password.length > 6
+  ) {
+    bcrypt
+      .hash(password, saltRounds)
+      .then((hash) =>
+        db.query("INSERT INTO users (username, password) VALUES (?,?)", [
+          username,
+          hash
+        ])
+      )
+      .then((dbResults) => {
+        console.log(dbResults);
+        res.sendStatus(201);
+      })
+      .catch((error) => {
+        res.sendStatus(500);
+        console.log("no");
+      });
+  } else {
+    console.log(
+      "incorrect username or password, both must be strings and username more than 4 long and password more than 6 characters long"
+    );
+    res.sendStatus(400);
+  }
+});
+
+/* DB init */
+Promise.all([
+  db.query(`CREATE TABLE IF NOT EXISTS users(
+          id INT AUTO_INCREMENT PRIMARY KEY,
+          username VARCHAR(32),
+          password VARCHAR(256)
+      )`)
+  // Add more table create statements if you need more tables
+])
+  .then(() => {
+    console.log("database initialized");
+    app.listen(port, () => {
+      console.log(`Example API listening on http://localhost:${port}\n`);
+    });
+  })
+  .catch((error) => console.log(error));

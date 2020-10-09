@@ -1,5 +1,3 @@
-
- 
 export default [
   {
     featureType: "all",
@@ -88,4 +86,3 @@ export default [
     stylers: [{ color: "#ffffff" }]
   }
 ];
-

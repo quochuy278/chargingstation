@@ -27,6 +27,11 @@ let myAuth = {
               username: username,
               password: password
             }
+          },
+          {
+            headers: {
+              "Content-Type": "application/json;charset=UTF-8"
+            }
           }
         )
         .then((result) => {
@@ -34,11 +39,11 @@ let myAuth = {
             username: username,
             password: password
           };
-          resolve();
+          resolve(result);
         })
         .catch((error) => {
           console.log(error);
-          reject();
+          reject(error);
         });
     });
   },
