@@ -20,6 +20,7 @@ export default function Login(props) {
         console.log(err);
       });
   };
+
   return (
     <div>
       <form onSubmit={login} noValidate autoComplete="off">
@@ -40,6 +41,7 @@ export default function Login(props) {
             margin="normal"
             fullWidth
           />
+          <TextField maxLength="3"></TextField>
         </Container>
         <Button type="submit" color="primary">
           Login
@@ -48,6 +50,7 @@ export default function Login(props) {
       <Typography>
         or do you want to <Link to="/register"> register</Link>
       </Typography>
+      <Link to="/users"> view</Link>
     </div>
   );
 }

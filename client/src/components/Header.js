@@ -37,13 +37,20 @@ function Header(props) {
               <Link to="/about">About Us</Link>
             </Button>
           </Box>
+
           <Box ml="auto">
-            <Button>
-              <Link to="/login">Login</Link>
-            </Button>
-            <Button>
-              <Link to="/register">Register</Link>
-            </Button>
+            {!props.isAuthenticated ? (
+              <div>
+                <Button>
+                  <Link to="/login">Login</Link>
+                </Button>
+                <Button>
+                  <Link to="/register">Register</Link>
+                </Button>
+              </div>
+            ) : (
+              <Button onClick={props.onLogout}>Log Out</Button>
+            )}
           </Box>
         </Toolbar>
       </AppBar>

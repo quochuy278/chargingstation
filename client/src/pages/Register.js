@@ -22,7 +22,7 @@ export default function Register() {
   return (
     <div>
       <form onSubmit={register} noValidate autoComplete="off">
-        <Container>
+        <Container maxWidth="sm">
           <TextField
             autoFocus
             margin="normal"

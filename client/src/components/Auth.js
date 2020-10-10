@@ -21,18 +21,13 @@ let myAuth = {
       axios
         .post(
           constants.baseAddress + "/login",
-          {},
           {
             auth: {
               username: username,
               password: password
             }
           },
-          {
-            headers: {
-              "Content-Type": "application/json;charset=UTF-8"
-            }
-          }
+          {}
         )
         .then((result) => {
           userInfo = {

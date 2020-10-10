@@ -9,12 +9,13 @@ import Location from "./pages/Location";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Auth from "./components/Auth";
-import ExampleProtectedView from "./components/ExampleView";
+import Profile from "./components/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
 import constants from "./constants.json";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import axios from "axios";
+import StopWatch from "./components/StopWatch";
 
 const theme = createMuiTheme({
   palette: {
@@ -29,7 +30,8 @@ const theme = createMuiTheme({
 export default class App extends Component {
   state = {
     isAuthenticated: false,
-    someData: []
+    someData: [],
+    userInfor: []
   };
 
   onLogin = () => {
@@ -42,6 +44,11 @@ export default class App extends Component {
     console.log("Login failed");
   };
 
+  onLogout = () => {
+    this.setState({ isAuthenticated: false });
+    console.log("Logout");
+  };
+
   loadProtectedData = () => {
     axios
       .get(constants.baseAddress + "/hello-protected", Auth.getAxiosAuth())
@@ -49,50 +56,65 @@ export default class App extends Component {
         this.setState({ someData: results.data });
       });
   };
+  componentDidMount() {
+    axios
+      .get(constants.baseAddress + "/users/")
+      .then((res) => {
+        console.log(res);
+        this.setState({ userInfor: res.data });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   render() {
     return (
-      <React.StrictMode>
-        <ThemeProvider theme={theme}>
-          <div className="App">
-            <Header onLogin={this.onLogin}></Header>
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route path="/location" component={Location} />
-              <Route path="/about" component={About} />
-              <Route path="/register">
-                <Register></Register>
-              </Route>
-              <Route
-                path="/login"
-                exact
-                render={(routeProps) => (
-                  <Login
-                    loginSuccess={this.onLogin}
-                    loginFail={this.onLoginFail}
-                    userInfo={this.state.userInfo}
-                    redirectPathOnSuccess="/"
-                    {...routeProps}
-                  />
-                )}
-              />
-              {/* <ProtectedRoute
-                isAuthenticated={this.state.isAuthenticated}
-                path="/example"
-                exact
-                render={(routeProps) => (
-                  <ExampleProtectedView
-                    loadProtectedData={this.loadProtectedData}
-                    someData={this.state.someData}
-                  />
-                )}
-              ></ProtectedRoute> */}
-              {/* <Route path="*">404 Page</Route> */}
-            </Switch>
-            <Footer></Footer>
-          </div>
-        </ThemeProvider>
-      </React.StrictMode>
+      <ThemeProvider theme={theme}>
+        <div className="App">
+          <Header
+            onLogout={this.onLogout}
+            isAuthenticated={this.state.isAuthenticated}
+          ></Header>
+          <Switch>
+            <Route path="/stop">
+              <StopWatch></StopWatch>
+            </Route>
+            <Route exact path="/" component={Home} />
+            <Route path="/location" component={Location} />
+            <Route path="/about" component={About} />
+            <Route path="/register">
+              <Register></Register>
+            </Route>
+            <Route
+              path="/login"
+              exact
+              render={(routeProps) => (
+                <Login
+                  loginSuccess={this.onLogin}
+                  loginFail={this.onLoginFail}
+                  userInfor={this.state.userInfor}
+                  redirectPathOnSuccess="/"
+                  {...routeProps}
+                />
+              )}
+            />
+            <ProtectedRoute
+              isAuthenticated={this.state.isAuthenticated}
+              path="/users"
+              exact
+              render={(routeProps) => (
+                <Profile
+                  loadProtectedData={this.loadProtectedData}
+                  userInfor={this.state.userInfor}
+                />
+              )}
+            ></ProtectedRoute>
+            {/* <Route path="*">404 Page</Route> */}
+          </Switch>
+          <Footer></Footer>
+        </div>
+      </ThemeProvider>
     );
   }
 }
