@@ -42,17 +42,36 @@ app.get(
   (req, res) => res.send("Hello Protected World!")
 );
 
-// app.get("/user", (req, res) => {
-//   console.log(req.params.id);
-//   console.log(req.body.auth.username);
-//   db.query("SELECT id, username FROM users WHERE id = ?", [req.params.id])
-//     .then((res) => {
-//       console.log(res);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// });
+// app.get(
+//   "/users",
+//   passport.authenticate("basic", { session: false }),
+//   (req, res) => {
+// db.query("SELECT id, username FROM users WHERE username = ?", [
+//   req.body.auth.username
+// ])
+//   .then((results) => {
+//     console.log(results);
+//     console.log(req.body);
+//     res.sendStatus(201);
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//     res.sendStatus(500);
+//   });
+//   }
+// );
+
+app.get("/users", (req, res) => {
+  console.log(req);
+  console.log(res);
+  db.query("SELECT id, username FROM users")
+    .then((result) => {
+      console.log("yep");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
 app.post("/login", (req, res) => {
   let username = req.body.auth.username;
@@ -85,27 +104,6 @@ app.post("/login", (req, res) => {
     res.sendStatus(400);
   }
 });
-
-app.get(
-  "/users/",
-  passport.authenticate("basic", { session: false }),
-  (req, res) => {
-    console.log("yes");
-    console.log(req.body);
-    db.query("SELECT id, username FROM users WHERE username = ?", [
-      req.body.username
-    ])
-      .then((results) => {
-        console.log(results);
-        console.log(req.body);
-        res.sendStatus(201);
-      })
-      .catch((err) => {
-        console.log(err);
-        res.sendStatus(500);
-      });
-  }
-);
 
 app.post("/register", (req, res) => {
   let username = req.body.username.trim();

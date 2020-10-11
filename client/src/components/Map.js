@@ -34,8 +34,6 @@ function Map() {
     getData();
   }, []);
 
-  console.log(location);
-
   return (
     <LoadScript googleMapsApiKey="AIzaSyDOduUSUYX6lFwhxQmx2b3yHifFBAwiHSw">
       <GoogleMap

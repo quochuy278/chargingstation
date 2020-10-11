@@ -12,11 +12,11 @@ export default function Login(props) {
       event.target["password"].value
     )
       .then((result) => {
-        console.log("login" + result);
-        props.loginSuccess();
+        props.onLoginSuccess();
+        props.history.push("/location");
       })
       .catch((err) => {
-        props.loginFail();
+        props.onLoginFail();
         console.log(err);
       });
   };
@@ -41,7 +41,6 @@ export default function Login(props) {
             margin="normal"
             fullWidth
           />
-          <TextField maxLength="3"></TextField>
         </Container>
         <Button type="submit" color="primary">
           Login
@@ -50,7 +49,6 @@ export default function Login(props) {
       <Typography>
         or do you want to <Link to="/register"> register</Link>
       </Typography>
-      <Link to="/users"> view</Link>
     </div>
   );
 }

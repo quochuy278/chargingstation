@@ -34,7 +34,7 @@ export default class App extends Component {
     userInfor: []
   };
 
-  onLogin = () => {
+  onLoginSuccess = () => {
     this.setState({ isAuthenticated: true });
     console.log("login");
   };
@@ -56,19 +56,20 @@ export default class App extends Component {
         this.setState({ someData: results.data });
       });
   };
-  componentDidMount() {
+  getUser = () => {
     axios
-      .get(constants.baseAddress + "/users/")
+      .get(constants.baseAddress + "/users")
       .then((res) => {
-        console.log(res);
-        this.setState({ userInfor: res.data });
+        this.setState({ userInfor: res.data.RowDataPacket });
+        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }
+  };
 
   render() {
+    console.log(this.state);
     return (
       <ThemeProvider theme={theme}>
         <div className="App">
@@ -81,7 +82,9 @@ export default class App extends Component {
               <StopWatch></StopWatch>
             </Route>
             <Route exact path="/" component={Home} />
-            <Route path="/location" component={Location} />
+            <Route path="/location">
+              <Location isAuthenticated={this.state.isAuthenticated}></Location>
+            </Route>
             <Route path="/about" component={About} />
             <Route path="/register">
               <Register></Register>
@@ -91,7 +94,7 @@ export default class App extends Component {
               exact
               render={(routeProps) => (
                 <Login
-                  loginSuccess={this.onLogin}
+                  onLoginSuccess={this.onLoginSuccess}
                   loginFail={this.onLoginFail}
                   userInfor={this.state.userInfor}
                   redirectPathOnSuccess="/"
@@ -107,11 +110,13 @@ export default class App extends Component {
                 <Profile
                   loadProtectedData={this.loadProtectedData}
                   userInfor={this.state.userInfor}
+                  getUser={this.getUser}
                 />
               )}
             ></ProtectedRoute>
             {/* <Route path="*">404 Page</Route> */}
           </Switch>
+
           <Footer></Footer>
         </div>
       </ThemeProvider>
