@@ -5,11 +5,11 @@ import {
   LoadScript,
   Marker
 } from "@react-google-maps/api";
-import { getMaps } from "../api/AxiosClient";
+import { getMaps } from "./AxiosClient";
 import MapStyles from "../components/MapStyles";
 
 const containerStyle = {
-  width: "100vw",
+  width: "100%",
   height: "100vh"
 };
 const center = {

@@ -7,9 +7,11 @@ export default function Location(props) {
   return (
     <div>
       {console.log(props.isAuthenticated)}
-      {props.isAuthenticated ? (
+      {!props.isAuthenticated ? (
         <Grid container>
-          <Grid item md={3}></Grid>
+          <Grid item md={3}>
+            <List></List>
+          </Grid>
           <Grid item md={9}>
             <Map></Map>
           </Grid>

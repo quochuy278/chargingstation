@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { getMaps } from "./apiClient";
+
+import { getMaps } from "./AxiosClient";
 
 export default function List() {
   const [items, setItems] = useState([]);
