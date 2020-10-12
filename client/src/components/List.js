@@ -1,65 +1,62 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 
-import { getMaps } from "./AxiosClient";
+export default function List(props) {
+  // const [items, setItems] = useState([]);
 
-export default function List() {
-  const [items, setItems] = useState([]);
+  // const getData = () => {
+  //   getMaps()
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       setItems(res.data);
+  //     })
+  //     .catch((error) => console.log(error));
+  // };
+  // useEffect(() => {
+  //   getData();
+  // }, []);
 
-  const getData = () => {
-    getMaps()
-      .then((res) => {
-        console.log(res.data);
-        setItems(res.data);
-      })
-      .catch((error) => console.log(error));
-  };
+  // const check = (array) => {
+  //   if (array.Reference == null) return "Charger not available";
+  //   else return array.Reference;
+  // };
 
-  useEffect(() => {
-    getData();
-  }, []);
+  // const fastChargeCheck = (array) => {
+  //   if (array.Level.IsFastChargeCapable === false) return "Unavailable";
+  //   else if (array.Level.IsFastChargeCapable === true) return "Available";
+  // };
 
-  const check = (array) => {
-    if (array.Reference == null) return "Charger not available";
-    else return array.Reference;
-  };
-
-  const fastChargeCheck = (array) => {
-    if (array.Level.IsFastChargeCapable === false) return "Unavailable";
-    else if (array.Level.IsFastChargeCapable === true) return "Available";
-  };
-
-  const connectionTypeCheck = (array) => {
-    if (array.ConnectionType.Title === "Unknown") return "Type 2 Connectors";
-    else return array.ConnectionType.Title;
-  };
+  // const connectionTypeCheck = (array) => {
+  //   if (array.ConnectionType.Title === "Unknown") return "Type 2 Connectors";
+  //   else return array.ConnectionType.Title;
+  // };
 
   return (
     <div>
-      {items.map((charger) => {
+      {props.items.map((charger) => {
         return (
-          <>
+          <div>
+            <b>Title: {charger.AddressInfo.Title}</b>
+            <b>Address: {charger.AddressInfo.AddressLine1}</b>
+            <b>Chargers: {charger.NumberOfPoints}</b>
             <div>
-              <div>Title: {charger.AddressInfo.Title}</div>
-              <div>Address: {charger.AddressInfo.AddressLine1}</div>
-              <div>Chargers: {charger.NumberOfPoints}</div>
-              <div>
-                {charger.Connections.map((chargerInfo) => {
-                  return (
-                    <ul>
-                      <li>
-                        ID: {chargerInfo.ID} <br />
-                        Reference: {check(chargerInfo)} <br />
-                        Comments: {chargerInfo.Level.Title} <br />
-                        Fast charge: {fastChargeCheck(chargerInfo)} <br />
-                        Connection type : {connectionTypeCheck(chargerInfo)}
-                      </li>
-                    </ul>
-                  );
-                })}
-              </div>
-              <p>-----------------------------------------</p>
+              {charger.Connections.map((chargerInfo) => {
+                return (
+                  <ul>
+                    <li>ID: {chargerInfo.ID}</li>
+                    <li>Reference: {props.check(chargerInfo)}</li>
+                    <li>Comments: {chargerInfo.Level.Title}</li>
+                    <li>Fast charge: {props.fastChargeCheck(chargerInfo)}</li>
+                    <li>
+                      Connection type:
+                      {props.connectionTypeCheck(chargerInfo)}
+                    </li>
+                  </ul>
+                );
+              })}
             </div>
-          </>
+            <p>-----------------------------------------</p>
+          </div>
         );
       })}
     </div>
