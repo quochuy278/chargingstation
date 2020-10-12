@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import {
   GoogleMap,
@@ -8,11 +9,6 @@ import {
 import * as ChargerData from "../data/data.json"
 import mapStyles from "./mapStyles"
 
-
-
-
-
-
 function Map() {
   
   const [charger, setSelectedCharger] = useState(null);
@@ -20,7 +16,7 @@ function Map() {
  const containerStyle = {
   width: "100vw",
   height: "100vh"
-};
+ }
 const center = {
   lat: 65.012093,
   lng: 25.465076
@@ -43,13 +39,14 @@ const center = {
 //   }
   
 
+
+
+
   // function Search() {
   //   return (<input placeholder='Search a charger here' onChange={input} ></input> )
   // }
   return (
-    <LoadScript
-      googleMapsApiKey="AIzaSyDOduUSUYX6lFwhxQmx2b3yHifFBAwiHSw"
-    >
+    <LoadScript googleMapsApiKey="AIzaSyDOduUSUYX6lFwhxQmx2b3yHifFBAwiHSw">
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
@@ -66,7 +63,7 @@ const center = {
           }}
           />
         }) }
-         {charger && (
+        {charger && (
           <InfoWindow
             onCloseClick={() => {
               setSelectedCharger(null);
@@ -85,11 +82,8 @@ const center = {
             </div>
           </InfoWindow>
         )}
-        
       </GoogleMap>
-    </LoadScript>
-    
+    </LoadScript>  
   );
 }
-
 export default React.memo(Map);
