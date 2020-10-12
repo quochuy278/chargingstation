@@ -8,7 +8,7 @@
             "connectorType": "CCS",
             "price": 0.18,
             "kW ": 50,
-            "serialNo": 10000,
+            "digit": 1312,
             "status": false,
             "lat": 64.9782,
             "lng": 25.5610
@@ -21,7 +21,7 @@
             "connectorType": "Type2",
             "price": 0.20,
             "kW ": 22,
-            "serialNo": 10001,
+            "digit": 4574,
             "status": false,
             "lat": 65.0125,
             "lng": 25.4806
@@ -34,7 +34,7 @@
             "connectorType": "Type2",
             "price": 0.20,
             "kW ": 22,
-            "serialNo": 10002,
+            "digit": 1244,
             "status": false,
             "lat": 65.0155,
             "lng": 25.4767
@@ -47,7 +47,7 @@
             "connectorType": "Type2",
             "price": 0.20,
             "kW ": 22,
-            "serialNo": 10003,
+            "digit": 9363,
             "status": false,
             "lat": 65.0123,
             "lng": 25.4724
@@ -60,7 +60,7 @@
             "connectorType": "Type2",
             "price": 0.20,
             "kW ": 22,
-            "serialNo": 10004,
+            "digit": 6035,
             "status": false,
             "lat": 65.0112,
             "lng": 25.4649
@@ -73,7 +73,7 @@
             "connectorType": "Type2",
             "price": 0.20,
             "kW ": 22,
-            "serialNo": 10005,
+            "digit":6326,
             "status": false,
             "lat": 64.6841,
             "lng": 24.4791
@@ -86,7 +86,7 @@
             "connectorType": "CCS",
             "price": 0.18,
             "kW ": 50,
-            "serialNo": 10006,
+            "digit": 7435,
             "status": false,
             "lat": 64.2530,
             "lng": 25.7737
@@ -99,7 +99,7 @@
             "connectorType": "Type2",
             "price": 0.20,
             "kW ": 22,
-            "serialNo": 10007,
+            "digit":3612,
             "status": false,
             "lat": 63.6714,
             "lng": 27.5209
@@ -112,7 +112,7 @@
             "connectorType": "CCS",
             "price": 0.18,
             "kW ": 50,
-            "serialNo": 10008,
+            "digit":6124,
             "status": false,
             "lat": 62.6213,
             "lng": 26.8356
@@ -125,7 +125,7 @@
             "connectorType": "Type2",
             "price": 0.20,
             "kW ": 22,
-            "serialNo": 10009,
+            "digit":4257,
             "status": false,
             "lat": 62.4859,
             "lng": 30.6185
@@ -138,7 +138,7 @@
             "connectorType": "CCS",
             "price": 0.18,
             "kW ": 50,
-            "serialNo": 10010,
+            "digit":9235,
             "status": false,
             "lat": 61.5229,
             "lng": 28.1776
@@ -151,7 +151,7 @@
             "connectorType": "CCS",
             "price": 0.18,
             "kW ": 50,
-            "serialNo": 10011,
+            "digit":2512,
             "status": false,
             "lat": 61.4208,
             "lng": 26.4351
@@ -164,7 +164,7 @@
             "connectorType": "Type2",
             "price": 0.20,
             "kW ": 22,
-            "serialNo": 10012,
+            "digit":8252,
             "status": false,
             "lat": 60.9423,
             "lng": 23.3636
@@ -177,7 +177,7 @@
             "connectorType": "Type2",
             "price": 0.20,
             "kW ": 22,
-            "serialNo": 10013,
+            "digit":6412,
             "status": false,
             "lat": 60.6842,
             "lng": 21.9877
@@ -190,7 +190,7 @@
             "connectorType": "Type2",
             "price": 0,
             "kW ": 22,
-            "serialNo": 10014,
+            "digit":4512,
             "status": false,
             "lat": 61.1124,
             "lng": 21.7842
@@ -203,7 +203,7 @@
             "connectorType": "Type2",
             "price": 0.20,
             "kW ": 22,
-            "serialNo": 10015,
+            "digit":7253,
             "status": false,
             "lat": 63.0745,
             "lng": 21.7087
@@ -216,7 +216,7 @@
             "connectorType": "Type2",
             "price": 0,
             "kW ": 22,
-            "serialNo": 10016,
+            "digit":8243,
             "status": false,
             "lat": 66.1665,
             "lng": 29.1359
@@ -229,7 +229,7 @@
             "connectorType": "Type2",
             "price": 0,
             "kW ": 22,
-            "serialNo": 10017,
+            "digit":1245,
             "status": false,
             "lat": 68.4216,
             "lng": 27.4257
@@ -242,7 +242,7 @@
             "connectorType": "Type2",
             "price": 0,
             "kW ": 22,
-            "serialNo": 10018,
+            "digit":5345,
             "status": false,
             "lat": 69.5821,
             "lng": 25.9558
@@ -255,7 +255,7 @@
             "connectorType": "Type2",
             "price": 0.20,
             "kW ": 22,
-            "serialNo": 10019,
+            "digit":6342,
             "status": false,
             "lat": 66.7160,
             "lng": 27.4316
@@ -268,7 +268,7 @@
             "connectorType": "Type2",
             "price": 0.20,
             "kW ": 22,
-            "serialNo": 10020,
+            "digit":7342,
             "status": false,
             "lat": 65.326699,
             "lng": 25.375006
@@ -281,7 +281,7 @@
             "connectorType": "CCS",
             "price": 0.18,
             "kW ": 50,
-            "serialNo": 10021,
+            "digit":8342,
             "status": false,
             "lat": 64.90386049332974,
             "lng": 25.542823900866097
@@ -294,7 +294,7 @@
             "connectorType": "Type2",
             "price": 0,
             "kW ": 22,
-            "serialNo": 10022,
+            "digit": 6342,
             "status": false,
             "lat": 65.19391,
             "lng": 25.41201
@@ -307,7 +307,7 @@
             "connectorType": "Type2",
             "price": 0.20,
             "kW ": 22,
-            "serialNo": 10023,
+            "serialNo": 2156,
             "status": false,
             "lat": 65.19391,
             "lng": 25.41201
@@ -320,7 +320,7 @@
             "connectorType": "CSS",
             "price": 0.18,
             "kW ": 50,
-            "serialNo": 10024,
+            "serialNo": 8902,
             "status": false,
             "lat": 65.19391,
             "lng": 25.41201
