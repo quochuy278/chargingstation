@@ -8,9 +8,10 @@ const db = require("./db");
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 var Strategy = require("passport-http").BasicStrategy;
+const chargerComponent = require("./components/charger");
 
 const saltRounds = 4;
-
+app.use("/charger", chargerComponent);
 app.use(bodyParser.json());
 app.use(cors());
 
@@ -62,20 +63,33 @@ app.get(
 // );
 
 app.get("/users", (req, res) => {
-  console.log(req);
-  console.log(res);
   db.query("SELECT id, username FROM users")
     .then((result) => {
-      console.log("yep");
+      res.json(result);
     })
     .catch((err) => {
       console.log(err);
     });
 });
 
+app.get(
+  "/users/:id",
+  passport.authenticate("basic", { session: false }),
+  (req, res) => {
+    db.query("SELECT id, username FROM users WHERE id = ?", [
+      req.params.id
+    ]).then((results) => {
+      res.json(results).catch((err) => {
+        console.log(err);
+      });
+    });
+  }
+);
+
 app.post("/login", (req, res) => {
   let username = req.body.auth.username;
   let password = req.body.auth.password;
+
   if (username && password) {
     db.query("SELECT * FROM users WHERE username = ?", [username], function(
       err,
@@ -145,6 +159,10 @@ Promise.all([
           id VARCHAR(256) PRIMARY KEY,
           username VARCHAR(32),
           password VARCHAR(256)
+      )`),
+  db.query(`CREATE TABLE IF NOT EXISTS charger(
+          id INT AUTO_INCREMENT PRIMARY KEY,
+          name VARCHAR(32), location VARCHAR(32), spped VARCHAR(32), type VARCHAR(32), price VARCHAR(32), electrictity INT, status VARCHAR(32), lat DECIMAL(7,5), lng DECIMAL(7,5)
       )`)
   // Add more table create statements if you need more tables
 ])
