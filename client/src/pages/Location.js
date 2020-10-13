@@ -105,7 +105,7 @@ export default class Location extends Component {
   render() {
     return (
       <div>
-        {!this.state.isAuthenticated ? (
+        {this.state.isAuthenticated ? (
           <Grid container>
             <Grid item md={3}>
               <Box css={{ height: "50vh", overflow: "auto" }}>

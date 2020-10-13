@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import {
   GoogleMap,
   InfoWindow,
@@ -15,7 +15,7 @@ function Map(props) {
     width: "100%",
     height: "100vh"
   };
-  center = {
+  const center = {
     lat: 65.012093,
     lng: 25.465076
   };
