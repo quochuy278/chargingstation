@@ -15,7 +15,6 @@ import constants from "./constants.json";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import axios from "axios";
-import StopWatch from "./components/StopWatch";
 
 const theme = createMuiTheme({
   palette: {
@@ -31,8 +30,18 @@ export default class App extends Component {
   state = {
     isAuthenticated: false,
     someData: [],
-    userInfor: []
+    userInfor: [],
+    chargers: []
   };
+
+  componentDidMount() {
+    axios
+      .get(constants.baseAddress + "/chargers")
+      .then((res) => {
+        this.setState({ chargers: res.data });
+      })
+      .catch((err) => console.log(err));
+  }
 
   onLoginSuccess = () => {
     this.setState({ isAuthenticated: true });
@@ -56,17 +65,18 @@ export default class App extends Component {
         this.setState({ someData: results.data });
       });
   };
-  getUser = () => {
-    axios
-      .get(constants.baseAddress + "/users")
-      .then((res) => {
-        this.setState({ userInfor: res.data.RowDataPacket });
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+
+  // getUser = () => {
+  //   axios
+  //     .get(constants.baseAddress + "/users")
+  //     .then((res) => {
+  //       this.setState({ userInfor: res.data.RowDataPacket });
+  //       console.log(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   render() {
     console.log(this.state);
@@ -78,9 +88,6 @@ export default class App extends Component {
             isAuthenticated={this.state.isAuthenticated}
           ></Header>
           <Switch>
-            <Route path="/stop">
-              <StopWatch></StopWatch>
-            </Route>
             <Route exact path="/" component={Home} />
             <Route path="/location">
               <Location isAuthenticated={this.state.isAuthenticated}></Location>
@@ -96,8 +103,6 @@ export default class App extends Component {
                 <Login
                   onLoginSuccess={this.onLoginSuccess}
                   loginFail={this.onLoginFail}
-                  userInfor={this.state.userInfor}
-                  redirectPathOnSuccess="/"
                   {...routeProps}
                 />
               )}

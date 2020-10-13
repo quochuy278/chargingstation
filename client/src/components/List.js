@@ -3,7 +3,13 @@ import * as ChargersData from "../data/data.json";
 import { Typography } from "@material-ui/core";
 
 export default function List() {
-  const 
+  const getStatus = (arr) => {
+    if (arr.status === false) {
+      return "Unavailable";
+    } else {
+      return "Available";
+    }
+  };
   return (
     <div>
       {ChargersData.chargers.map((charger) => {
@@ -12,7 +18,7 @@ export default function List() {
             <Typography>{charger.id}</Typography>
             <Typography>Name: {charger.name}</Typography>
             <Typography>Address: {charger.location}</Typography>
-            <Typography>Status:</Typography>
+            <Typography>Status: {getStatus(charger)}</Typography>
             <Typography>
               Speed: {charger.speed} - {charger.kW} kW
             </Typography>

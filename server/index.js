@@ -11,9 +11,10 @@ var Strategy = require("passport-http").BasicStrategy;
 const chargerComponent = require("./components/chargers");
 
 const saltRounds = 4;
-app.use("/chargers", chargerComponent);
-app.use(bodyParser.json());
+
 app.use(cors());
+app.use(bodyParser.json());
+app.use("/chargers", chargerComponent);
 
 passport.use(
   new Strategy((username, password, cb) => {

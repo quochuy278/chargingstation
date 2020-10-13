@@ -30,8 +30,6 @@ export default class Location extends Component {
   //     .catch((error) => console.log(error));
   // };
 
-  componentDidMount() {}
-
   start = () => {
     this.run();
     this.setState({ status: 1 });
@@ -122,7 +120,16 @@ export default class Location extends Component {
             </Grid>
           </Grid>
         ) : (
-          <Map></Map>
+          <Grid container>
+            <Grid item md={3}>
+              <Box css={{ height: "100vh", overflow: "auto" }}>
+                <List></List>
+              </Box>
+            </Grid>
+            <Grid item md={9}>
+              <Map></Map>
+            </Grid>
+          </Grid>
         )}
       </div>
     );
