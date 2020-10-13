@@ -93,7 +93,7 @@ export default class App extends Component {
               render={(routeProps) => (
                 <Login
                   onLoginSuccess={this.onLoginSuccess}
-                  loginFail={this.onLoginFail}
+                  onLoginFail={this.onLoginFail}
                   {...routeProps}
                 />
               )}
