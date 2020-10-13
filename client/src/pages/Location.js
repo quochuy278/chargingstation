@@ -76,42 +76,61 @@ export default class Location extends Component {
       console.log(a[0]);
       if (a[0].status) {
         this.setState({ confirm: true });
-        this.price();
+        let total = 0;
+        let kw = a[0].kW;
+        let price = a[0].price;
+        if (a[0].speed == "Slow") {
+          total =
+            price *
+            (this.state.time.h * 60 +
+              this.state.time.m +
+              this.state.time.s / 60);
+          console.log(total);
+        } else {
+          total =
+            price *
+            kw *
+            (this.state.time.h +
+              this.state.time.m / 60 +
+              this.state.time.s / 3600);
+          console.log(this.state.time.h);
+        }
+        this.setState({ totalPrice: price });
       }
       this.setState({ selectedCharger: a });
     }
   };
 
-  price = (event) => {
+  price = () => {
     let total = 0;
-    let kw = this.state.selectedCharger[0].kW;
-    let price = this.state.selectedCharger[0].price;
+    // let kw = this.state.selectedCharger[0].kW;
+    console.log(this.state.selectedCharger);
+    // let price = this.state.selectedCharger[0].price;
 
-    if (this.state.selectedCharger[0].speed == "Slow") {
-      total =
-        price *
-        (this.state.time.h * 60 + this.state.time.m + this.state.time.s / 60);
-      console.log(total);
-    } else {
-      total =
-        price *
-        kw *
-        (this.state.time.h + this.state.time.m / 60 + this.state.time.s / 3600);
-      console.log(this.state.time.h);
-    }
-    this.setState({ totalPrice: price });
+    // if (this.state.selectedCharger[0].speed == "Slow") {
+    //   total =
+    //     price *
+    //     (this.state.time.h * 60 + this.state.time.m + this.state.time.s / 60);
+    //   console.log(total);
+    // } else {
+    //   total =
+    //     price *
+    //     kw *
+    //     (this.state.time.h + this.state.time.m / 60 + this.state.time.s / 3600);
+    //   console.log(this.state.time.h);
+    // }
+    // this.setState({ totalPrice: price });
   };
 
   render() {
     return (
       <div>
-        {this.state.isAuthenticated ? (
+        {!this.props.isAuthenticated ? (
           <Grid container>
             <Grid item md={3}>
               <Box css={{ height: "50vh", overflow: "auto" }}>
                 <List chargers={this.props.chargers}></List>
               </Box>
-
               <Box>
                 <StopWatch
                   time={this.state.time}

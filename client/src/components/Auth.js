@@ -10,7 +10,7 @@ let myAuth = {
   authenticate: (username, password) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(constants.baseAddress + "/users/:id", {
+        .post(constants.baseAddress + "/login", {
           auth: {
             username: username,
             password: password

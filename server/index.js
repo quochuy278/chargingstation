@@ -2,20 +2,23 @@ const express = require("express");
 const app = express();
 const port = 4000;
 const bodyParser = require("body-parser");
+const db = require("./db");
 const cors = require("cors");
 const { v4: uuidv4 } = require("uuid");
-const db = require("./db");
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 var Strategy = require("passport-http").BasicStrategy;
 const chargerComponent = require("./components/chargers");
 
-const saltRounds = 4;
-
 app.use(cors());
 app.use(bodyParser.json());
 app.use("/chargers", chargerComponent);
 
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+
+// to check username and password given against which stored in db
 passport.use(
   new Strategy((username, password, cb) => {
     db.query("SELECT id, username, password FROM users WHERE username = ?", [
@@ -38,54 +41,54 @@ passport.use(
   })
 );
 
-app.get(
-  "/hello-protected",
-  passport.authenticate("basic", { session: false }),
-  (req, res) => res.send("Hello Protected World!")
-);
-
-// app.get(
-//   "/users",
-//   passport.authenticate("basic", { session: false }),
-//   (req, res) => {
-// db.query("SELECT id, username FROM users WHERE username = ?", [
-//   req.body.auth.username
-// ])
-//   .then((results) => {
-//     console.log(results);
-//     console.log(req.body);
-//     res.sendStatus(201);
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//     res.sendStatus(500);
-//   });
-//   }
-// );
-
-app.get("/users", (req, res) => {
-  db.query("SELECT id, username FROM users")
-    .then((result) => {
-      res.json(result);
-    })
-    .catch((err) => {
-      console.log(err);
+// register user
+const saltRounds = 4;
+app.post("/register", (req, res) => {
+  let username = req.body.username.trim();
+  let password = req.body.password.trim();
+  let id = uuidv4();
+  if (
+    typeof username === "string" &&
+    username.length > 4 &&
+    typeof password === "string" &&
+    password.length > 6
+  ) {
+    db.query("SELECT * FROM users WHERE username = ?", [username], function(
+      err,
+      results,
+      fields
+    ) {
+      if (err) {
+        console.log(err);
+      } else if (results.length == 0) {
+        bcrypt
+          .hash(password, saltRounds)
+          .then((hash) =>
+            db.query(
+              "INSERT INTO users (id, username, password) VALUES (?,?,?)",
+              [id, username, hash]
+            )
+          )
+          .then((dbResults) => {
+            console.log(dbResults);
+            res.sendStatus(201);
+          })
+          .catch((error) => {
+            error.sendStatus(500);
+          });
+      } else if (results.length > 0) {
+        res.send("Username already exits");
+      }
     });
+  } else {
+    console.log(
+      "incorrect username or password, both must be strings and username more than 4 long and password more than 6 characters long"
+    );
+    res.sendStatus(400);
+  }
 });
 
-app.get(
-  "/users/:id",
-  passport.authenticate("basic", { session: false }),
-  (req, res) => {
-    db.query("SELECT id, username FROM users WHERE id = ?", [
-      req.params.id
-    ]).then((results) => {
-      res.json(results).catch((err) => {
-        console.log(err);
-      });
-    });
-  }
-);
+// login user
 
 app.post("/login", (req, res) => {
   let username = req.body.auth.username;
@@ -120,39 +123,39 @@ app.post("/login", (req, res) => {
   }
 });
 
-app.post("/register", (req, res) => {
-  let username = req.body.username.trim();
-  let password = req.body.password.trim();
-  let id = uuidv4();
-  if (
-    typeof username === "string" &&
-    username.length > 4 &&
-    typeof password === "string" &&
-    password.length > 6
-  ) {
-    bcrypt
-      .hash(password, saltRounds)
-      .then((hash) =>
-        db.query("INSERT INTO users (id,username, password) VALUES (?,?,?)", [
-          id,
-          username,
-          hash
-        ])
-      )
-      .then((dbResults) => {
-        console.log(dbResults);
-        res.sendStatus(201);
+// history data
+app.post("/history", (req, res) => {
+  let username = req.body.username;
+  let address = req.body.address;
+  let chargetime = req.body.lengthChargeTime;
+  let cost = req.body.chargeCost;
+
+  db.query(
+    "INSERT INTO chargers (username, address, lengthChargeTime, chargeCost, chargeDate) VALUES (?,?,?,?, CURDATE() )",
+    [username, address, chargetime, cost],
+    function(err, dbresults, fields) {
+      if (err) {
+        res.send(err);
+      }
+      res.sendStatus(201);
+    }
+  );
+});
+
+// get protected information of users
+app.get(
+  "/history/:id",
+  passport.authenticate("basic", { session: false }),
+  (req, res) => {
+    db.query("SELECT * FROM chargers WHERE username = ?", [req.params.username])
+      .then((results) => {
+        res.json(results);
       })
-      .catch((error) => {
+      .catch(() => {
         res.sendStatus(500);
       });
-  } else {
-    console.log(
-      "incorrect username or password, both must be strings and username more than 4 long and password more than 6 characters long"
-    );
-    res.sendStatus(400);
   }
-});
+);
 
 /* DB init */
 Promise.all([
@@ -163,9 +166,8 @@ Promise.all([
       )`),
   db.query(`CREATE TABLE IF NOT EXISTS chargers(
           id INT AUTO_INCREMENT PRIMARY KEY,
-          name VARCHAR(32), location VARCHAR(32), spped VARCHAR(32), type VARCHAR(32), price VARCHAR(32), electrictity INT, status VARCHAR(32), lat DECIMAL(7,5), lng DECIMAL(7,5)
+          username VARCHAR(32), address VARCHAR(256), lengthChargeTime VARCHAR(256), chargeCost VARCHAR(256), chargeDate DATETIME
       )`)
-  // Add more table create statements if you need more tables
 ])
   .then(() => {
     console.log("database initialized");
