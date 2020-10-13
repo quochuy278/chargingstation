@@ -1,18 +1,18 @@
 const express = require("express");
 const db = require("../db");
 const router = express.Router();
-const chargerData = require("../../client/src/chargers.json");
+const chargerData = require("../../client/src/data/data.json");
 
 //  Return all charger information
 router.get("/", (req, res) => {
-  res.json(chargerData);
+  res.json(chargerData.chargers);
 });
 
 //  Return information of a single charger
 router.get("/:id", (req, res) => {
-  const result = chargerData.find((char) => char.id == req.params.id);
+  const result = chargerData.chargers.find((char) => char.id == req.params.id);
   if (!result) {
-    res.status(500).send("Dog not found.");
+    res.status(500).send("Charger not found.");
   } else {
     res.json(result);
   }
@@ -20,9 +20,10 @@ router.get("/:id", (req, res) => {
 
 router.post("/", (req, res) => {
   db.query(
-    "INSERT INTO charger (name, location, speed, type, price, electricity, status,lat,lng ) VALUES (?,?,?,?,?,?,?,?,?,?)",
+    "INSERT INTO chargers (name, digit, location, speed, type, price, electricity, status,lat,lng ) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
     [
       req.body.name,
+      req.body.digit,
       req.body.location,
       req.body.speed,
       req.body.type,

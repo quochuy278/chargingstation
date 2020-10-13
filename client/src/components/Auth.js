@@ -7,28 +7,15 @@ let userInfo = {
 };
 
 let myAuth = {
-  authenticateLocal: (username, password) => {
-    return new Promise((resolve, reject) => {
-      if (username == "test" && password == "test") {
-        resolve();
-      } else {
-        reject();
-      }
-    });
-  },
   authenticate: (username, password) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(
-          constants.baseAddress + "/login",
-          {
-            auth: {
-              username: username,
-              password: password
-            }
-          },
-          {}
-        )
+        .post(constants.baseAddress + "/users/:id", {
+          auth: {
+            username: username,
+            password: password
+          }
+        })
         .then((result) => {
           userInfo = {
             username: username,

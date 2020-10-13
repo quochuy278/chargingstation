@@ -8,10 +8,10 @@ const db = require("./db");
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 var Strategy = require("passport-http").BasicStrategy;
-const chargerComponent = require("./components/charger");
+const chargerComponent = require("./components/chargers");
 
 const saltRounds = 4;
-app.use("/charger", chargerComponent);
+app.use("/chargers", chargerComponent);
 app.use(bodyParser.json());
 app.use(cors());
 
@@ -160,7 +160,7 @@ Promise.all([
           username VARCHAR(32),
           password VARCHAR(256)
       )`),
-  db.query(`CREATE TABLE IF NOT EXISTS charger(
+  db.query(`CREATE TABLE IF NOT EXISTS chargers(
           id INT AUTO_INCREMENT PRIMARY KEY,
           name VARCHAR(32), location VARCHAR(32), spped VARCHAR(32), type VARCHAR(32), price VARCHAR(32), electrictity INT, status VARCHAR(32), lat DECIMAL(7,5), lng DECIMAL(7,5)
       )`)
