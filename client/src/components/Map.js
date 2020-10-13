@@ -5,12 +5,12 @@ import {
   LoadScript,
   Marker
 } from "@react-google-maps/api";
-import * as ChargerData from "../data/data.json";
+// import * as ChargerData from "../data/data.json";
 import mapStyles from "./MapStyles";
 
-function Map() {
+function Map(props) {
   const [charger, setSelectedCharger] = useState(null);
-  console.log(ChargerData);
+ 
   const containerStyle = {
     width: "100%",
     height: "100vh"
@@ -29,7 +29,7 @@ function Map() {
         options={mapStyles}
       >
         {/* <Marker key="123123" position={{lat:65.012093 , lng:25.465076}}/> */}
-        {ChargerData.chargers.map((chargers) => {
+        {props.chargers.map((chargers) => {
           return (
             <Marker
               key={chargers.id}
@@ -65,23 +65,3 @@ function Map() {
 }
 export default React.memo(Map);
 
-//  const input = (event) => {
-//    if (event.target.value == "" || event.target.value == "0")
-//    {
-//      console.log('Nothing')
-
-//    }
-//    else {
-//      location.map((place) => {
-//        if (place.AddressInfo.Title.includes(event.target.value) || place.AddressInfo.AddressLine1.includes(event.target.value)) {
-//          setSearchItem(place)
-//          console.log(searchItem)
-//        }
-//      })
-//    }
-//    event.preventDefault();
-//   }
-
-// function Search() {
-//   return (<input placeholder='Search a charger here' onChange={input} ></input> )
-// }

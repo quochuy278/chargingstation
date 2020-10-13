@@ -90,7 +90,7 @@ export default class App extends Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/location">
-              <Location isAuthenticated={this.state.isAuthenticated}></Location>
+              <Location isAuthenticated={this.state.isAuthenticated} chargers={this.state.chargers}></Location>
             </Route>
             <Route path="/about" component={About} />
             <Route path="/register">

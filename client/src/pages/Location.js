@@ -99,7 +99,7 @@ export default class Location extends Component {
           <Grid container>
             <Grid item md={3}>
               <Box css={{ height: "50vh", overflow: "auto" }}>
-                <List></List>
+                <List chargers={this.props.chargers}></List>
               </Box>
               <Box>
                 <StopWatch
@@ -116,14 +116,14 @@ export default class Location extends Component {
               </Box>
             </Grid>
             <Grid item md={9}>
-              <Map></Map>
+              <Map chargers={this.props.chargers}></Map>
             </Grid>
           </Grid>
         ) : (
           <Grid container>
             <Grid item md={3}>
               <Box css={{ height: "100vh", overflow: "auto" }}>
-                <List></List>
+                <List chargers={this.props.chargers}></List>
               </Box>
             </Grid>
             <Grid item md={9}>
