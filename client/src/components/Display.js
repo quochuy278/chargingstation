@@ -12,13 +12,12 @@ export default function Display(props) {
   };
   return (
     <div>
-      {h()}&nbsp;:&nbsp;
-      <p>{props.time.m >= 10 ? props.time.m : "0" + props.time.m}</p>
+      {h()}
+      <span>{props.time.m >= 10 ? props.time.m : "0" + props.time.m}</span>
       &nbsp;:&nbsp;
-      <p>{props.time.s >= 10 ? props.time.s : "0" + props.time.s}</p>
+      <span>{props.time.s >= 10 ? props.time.s : "0" + props.time.s}</span>
       &nbsp;:&nbsp;
-      <p>{props.time.ms >= 10 ? props.time.ms : "0" + props.time.ms}</p>
-      &nbsp;:&nbsp;
+      <span>{props.time.ms >= 10 ? props.time.ms : "0" + props.time.ms}</span>
     </div>
   );
 }

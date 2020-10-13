@@ -66,18 +66,6 @@ export default class App extends Component {
       });
   };
 
-  // getUser = () => {
-  //   axios
-  //     .get(constants.baseAddress + "/users")
-  //     .then((res) => {
-  //       this.setState({ userInfor: res.data.RowDataPacket });
-  //       console.log(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
-
   render() {
     console.log(this.state);
     return (
@@ -90,7 +78,10 @@ export default class App extends Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/location">
-              <Location isAuthenticated={this.state.isAuthenticated} chargers={this.state.chargers}></Location>
+              <Location
+                isAuthenticated={this.state.isAuthenticated}
+                chargers={this.state.chargers}
+              ></Location>
             </Route>
             <Route path="/about" component={About} />
             <Route path="/register">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
 import {
   GoogleMap,
   InfoWindow,
@@ -10,12 +10,12 @@ import mapStyles from "./MapStyles";
 
 function Map(props) {
   const [charger, setSelectedCharger] = useState(null);
- 
+
   const containerStyle = {
     width: "100%",
     height: "100vh"
   };
-  const center = {
+  center = {
     lat: 65.012093,
     lng: 25.465076
   };
@@ -64,4 +64,3 @@ function Map(props) {
   );
 }
 export default React.memo(Map);
-

@@ -230,7 +230,7 @@
       "price": 0,
       "kW": 22,
       "digit": 1245,
-      "status": false,
+      "status": true,
       "lat": 68.4216,
       "lng": 27.4257
     },
@@ -269,7 +269,7 @@
       "price": 0.2,
       "kW": 22,
       "digit": 7342,
-      "status": false,
+      "status": true,
       "lat": 65.326699,
       "lng": 25.375006
     },
@@ -282,7 +282,7 @@
       "price": 0.18,
       "kW": 50,
       "digit": 8342,
-      "status": false,
+      "status": true,
       "lat": 64.90386049332974,
       "lng": 25.542823900866097
     },
