@@ -1,4 +1,5 @@
 import React from 'react'
+import {Marker} from '@react-google-maps/api'
 
 export default function SearchResult(props) {
     return (
@@ -10,6 +11,7 @@ export default function SearchResult(props) {
               <p>Speed: {props.speed}</p>
               <p>Connection type: {props.connectorType}</p>
               <p>Price: {props.price}</p>
+          
             </div>
     </div>
         </div>

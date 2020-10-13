@@ -28,7 +28,7 @@ export default class List extends Component {
            <input placeholder="search a charger here" onChange={this.onSearchBoxChange} value={this.state.productSearch}></input>
         </div>
       <Search 
-      chargers={this.props.chargers.filter((h)=> h.name.includes(this.state.productSearch))} 
+      chargers={this.props.chargers.filter((h)=> h.name.toUpperCase().includes(this.state.productSearch.toUpperCase()))} 
       // items={ this.state.items.filter((item) => item.name.includes(this.state.productSearchString)) }
       />
         {this.props.chargers.map((charger) => {
