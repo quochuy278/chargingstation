@@ -66,18 +66,6 @@ export default class App extends Component {
       });
   };
 
-  // getUser = () => {
-  //   axios
-  //     .get(constants.baseAddress + "/users")
-  //     .then((res) => {
-  //       this.setState({ userInfor: res.data.RowDataPacket });
-  //       console.log(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
-
   render() {
     console.log(this.state);
     return (

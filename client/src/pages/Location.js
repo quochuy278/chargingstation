@@ -109,7 +109,7 @@ export default class Location extends Component {
           <Grid container>
             <Grid item md={3}>
               <Box css={{ height: "50vh", overflow: "auto" }}>
-                <List></List>
+                <List chargers={this.props.chargers}></List>
               </Box>
 
               <Box>
@@ -137,7 +137,7 @@ export default class Location extends Component {
           <Grid container>
             <Grid item md={3}>
               <Box css={{ height: "100vh", overflow: "auto" }}>
-                <List></List>
+                <List chargers={this.props.chargers}></List>
               </Box>
               <Box></Box>
             </Grid>
