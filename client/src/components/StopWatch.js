@@ -1,33 +1,44 @@
 import React from "react";
 import Buttons from "./Buttons";
 import Display from "./Display";
-import { Container } from "@material-ui/core";
-import Price from "./Price";
+import { Container, Button, Box } from "@material-ui/core";
+import { Link, Redirect } from "react-router-dom";
 
 export default function StopWatch(props) {
-  return (
-    <div>
-      {props.confirm ? (
-        <Container>
-          <Display time={props.time} />
-          <Buttons
-            status={props.status}
-            resume={props.resume}
-            start={props.start}
-            stop={props.stop}
-            reset={props.reset}
-          />
-          <form onSubmit={props.price}>
-            <input></input>
-          </form>
-        </Container>
-      ) : (
-        <Container>
-          <form onSubmit={props.verify}>
-            <input name="digit"></input>
-          </form>
-        </Container>
-      )}
-    </div>
-  );
+  {
+    if (props.isAuthenticated) {
+      if (props.confirm) {
+        return (
+          <div>
+            <Container m={6}>
+              <Box m={3}>
+                <Display time={props.time} />
+                <Buttons
+                  status={props.status}
+                  resume={props.resume}
+                  start={props.start}
+                  stop={props.stop}
+                />
+              </Box>
+              {props.status == 2 ? (
+                <Box m={3}>
+                  <Button>
+                    <Link to="/total">Next</Link>
+                  </Button>
+                </Box>
+              ) : (
+                <div></div>
+              )}
+            </Container>
+          </div>
+        );
+      } else {
+        alert("Please type the digit");
+        return <Redirect to="/location" />;
+      }
+    } else {
+      alert("Please login");
+      return <Redirect to="/login" />;
+    }
+  }
 }

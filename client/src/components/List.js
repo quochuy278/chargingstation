@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Search from "./Search";
+import { TextField, Box } from "@material-ui/core";
 
 export default class List extends Component {
   state = {
@@ -21,20 +22,33 @@ export default class List extends Component {
   render() {
     return (
       <div>
-        <input
+        <Box>
+          <form noValidate>
+            <TextField
+              label="Search a charger here"
+              onChange={this.onSearchBoxChange}
+              value={this.state.productSearch}
+            ></TextField>
+          </form>
+        </Box>
+
+        {/* <input
           placeholder="search a charger here"
           onChange={this.onSearchBoxChange}
           value={this.state.productSearch}
-        ></input>
+        ></input> */}
+        <Box m={2}>
+          <Search
+            isAuthenticated={this.props.isAuthenticated}
+            getStatus={this.getStatus}
+            chargers={this.props.chargers.filter((h) =>
+              h.name
+                .toUpperCase()
+                .includes(this.state.productSearch.toUpperCase())
+            )}
+          />
+        </Box>
 
-        <Search
-          getStatus={this.getStatus}
-          chargers={this.props.chargers.filter((h) =>
-            h.name
-              .toUpperCase()
-              .includes(this.state.productSearch.toUpperCase())
-          )}
-        />
         {/* {this.props.chargers.map((charger) => {
           return (
             <div>

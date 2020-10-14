@@ -9,7 +9,6 @@ export default function Buttons(props) {
       {props.status === 1 ? (
         <div>
           <Button onClick={props.stop}>Stop</Button>
-          <Button onClick={props.reset}>Reset</Button>
         </div>
       ) : (
         ""
@@ -18,7 +17,6 @@ export default function Buttons(props) {
       {props.status === 2 ? (
         <div>
           <Button onClick={props.resume}>Resume</Button>
-          <Button onClick={props.reset}>Reset</Button>
         </div>
       ) : (
         ""
