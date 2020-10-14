@@ -3,13 +3,13 @@ import React from "react";
 import { Redirect, Route } from "react-router-dom";
 
 export default function ProtectedRoute(props) {
-  const { isAuthenticated, ...rest } = props;
+  const { isAuthenticated, confirm, ...rest } = props;
   let output;
 
-  if (isAuthenticated) {
+  if (isAuthenticated && confirm) {
     output = <Route {...rest} />;
   } else {
-    output = <Redirect to="/" />;
+    output = <Redirect to="/location" />;
   }
 
   return <React.Fragment>{output}</React.Fragment>;

@@ -27,13 +27,13 @@ function Header(props) {
             <Typography>Chargers</Typography>
           </Box>
           <Box m="auto">
-            <Button>
+            <Button onClick={props.clear}>
               <Link to="/">Home</Link>
             </Button>
-            <Button>
+            <Button onClick={props.clear}>
               <Link to="/location">Location</Link>
             </Button>
-            <Button>
+            <Button onClick={props.clear}>
               <Link to="/about">About Us</Link>
             </Button>
           </Box>

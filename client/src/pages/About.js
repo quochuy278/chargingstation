@@ -22,10 +22,7 @@ export default function About() {
         </Typography>
         <Box>
           <Typography align="left">
-            Electric mobility is the smart choice. We make it the easy one, too.
-            Since 2007, we’ve focused solely on offering the best electric
-            vehicle (EV) charging experience for everyone involved in the shift
-            to electric mobility. Here’s how we do it—and why we won’t stop.
+            Here is our very first React JS, Node JS, Express and MySQL project!
           </Typography>
         </Box>
       </Container>

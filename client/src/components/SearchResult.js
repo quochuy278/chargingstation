@@ -13,6 +13,11 @@ export default function SearchResult(props) {
         Speed: {props.speed} -{props.kW}kW
       </Typography>
       <Typography>Connection Type: {props.connectorType}</Typography>
+      {!props.isAuthenticated ? (
+        <Typography>Digit: {props.digit}</Typography>
+      ) : (
+        <Typography></Typography>
+      )}
       <Typography>Price: {props.price}</Typography>
       <p>-----------------------------------------</p>
     </div>
