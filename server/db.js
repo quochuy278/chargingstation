@@ -5,7 +5,7 @@ try {
     connectionLimit: 10,
     host: "localhost",
     user: "root",
-    password: "root",
+    password: "123",
     database: "chargerdb"
   });
   console.log("connected");

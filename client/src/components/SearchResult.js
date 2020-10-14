@@ -1,6 +1,5 @@
 import React from "react";
 import { Typography } from "@material-ui/core";
-import { Marker } from "@react-google-maps/api";
 
 export default function SearchResult(props) {
   return (

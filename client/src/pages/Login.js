@@ -24,7 +24,7 @@ export default function Login(props) {
   return (
     <div>
       <form onSubmit={login} noValidate autoComplete="off">
-        <Container>
+        <Container maxWidth="sm">
           <TextField
             autoFocus
             margin="normal"

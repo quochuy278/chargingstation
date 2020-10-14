@@ -48,23 +48,6 @@ export default class List extends Component {
             )}
           />
         </Box>
-
-        {/* {this.props.chargers.map((charger) => {
-          return (
-            <div>
-              <Typography>{charger.id}</Typography>
-              <Typography>Name: {charger.name}</Typography>
-              <Typography>Address: {charger.location}</Typography>
-              <Typography>Status: {this.getStatus(charger)}</Typography>
-              <Typography>
-                Speed: {charger.speed} - {charger.kW} kW
-              </Typography>
-              <Typography>Connector Type: {charger.connectorType}</Typography>
-              <Typography>Price: {charger.price} </Typography>
-              <p>-----------------------------------------</p>
-            </div>
-          );
-        })} */}
       </div>
     );
   }

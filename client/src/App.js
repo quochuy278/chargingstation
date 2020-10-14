@@ -241,8 +241,6 @@ export default class App extends Component {
                 />
               )}
             />
-
-            {/* <Route path="*">404 Page</Route> */}
           </Switch>
           <Footer></Footer>
         </div>

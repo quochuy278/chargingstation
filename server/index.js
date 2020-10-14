@@ -78,6 +78,7 @@ app.post("/register", (req, res) => {
           });
       } else if (results.length > 0) {
         res.send("Username already exits");
+        console.log("Username already exits");
       }
     });
   } else {
@@ -110,11 +111,11 @@ app.post("/login", (req, res) => {
             res.sendStatus(200);
           } else {
             console.log("username and password does not match");
-            res.sendStatus(204);
+            res.sendStatus(400);
           }
         } else {
           console.log("username does not exits");
-          res.sendStatus(206);
+          res.sendStatus(400);
         }
       }
     });
